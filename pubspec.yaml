@@ -1,7 +1,7 @@
-name: flutter_examples
+name: custom_toolbar_pdf_viewer
 description: This project contains the Syncfusion Flutter UI widgets examples.
 version: 20.3.47  
-homepage: https://github.com/syncfusion/flutter-examples
+# homepage: https://github.com/syncfusion/flutter-examples
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
@@ -20,19 +20,15 @@ dependencies:
   intl: ^0.18.0
   
   syncfusion_localizations: ^24.1.41
-  syncfusion_flutter_datagrid_export: ^24.1.41
-  syncfusion_flutter_calendar: ^24.1.41
-  syncfusion_flutter_datepicker: ^24.1.41
-  syncfusion_flutter_charts: ^24.1.41
-  syncfusion_flutter_gauges: ^24.1.41
   syncfusion_flutter_sliders: ^24.1.41
   syncfusion_flutter_pdf: ^24.1.41
-  syncfusion_flutter_barcodes: ^24.1.41
-  syncfusion_officechart: ^24.1.41
-  syncfusion_flutter_maps: ^24.1.41
-  syncfusion_flutter_signaturepad: ^24.1.41
-  syncfusion_flutter_pdfviewer: ^24.1.41
-  syncfusion_flutter_treemap: ^24.1.41
+  syncfusion_flutter_pdfviewer:
+    git:
+      url: https://github.com/DarkKnight1005/flutter-widgets.git
+      path: packages/syncfusion_flutter_pdfviewer
+  syncfusion_examples_images:
+    git:
+      url: https://github.com/DarkKnight1005/syncfusion-examples-images.git
 
 flutter:
   uses-material-design: true
@@ -41,6 +37,10 @@ flutter:
     - images/pdf/
     - images/xlsio/
     - images/pdf_viewer/
+    - web/images/
+    - web/images/pdf/
+    - web/images/xlsio/
+    - web/images/pdf_viewer/
     - assets/pdf/
     - lib/sample_details.json
     - assets/world_map.json

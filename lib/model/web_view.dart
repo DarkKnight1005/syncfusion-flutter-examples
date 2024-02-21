@@ -285,6 +285,7 @@ class _WebLayoutPageState extends State<WebLayoutPage> {
                                           const EdgeInsets.fromLTRB(0, 7, 8, 7),
                                       child: Row(children: <Widget>[
                                         Image.asset('images/pub_logo.png',
+                                        package: 'syncfusion_examples_images',
                                             fit: BoxFit.contain,
                                             height: 33,
                                             width: 33),
@@ -1201,6 +1202,7 @@ class SampleOutputContainerState extends State<_SampleOutputContainer> {
                                                                                   height: 18,
                                                                                   width: 18,
                                                                                   child: Image.asset('images/scroll_arrow.png',
+                                                                                  package: 'syncfusion_examples_images',
                                                                                       // ignore: invalid_use_of_protected_member
                                                                                       color: _isRightScrolled ? model.textColor : model.textColor.withOpacity(0.5),
                                                                                       fit: BoxFit.contain),
@@ -1285,6 +1287,7 @@ class SampleOutputContainerState extends State<_SampleOutputContainer> {
                                                                               height: 18,
                                                                               width: 18,
                                                                               child: Image.asset('images/scroll-arrow-left.png',
+                                                                              package: 'syncfusion_examples_images',
                                                                                   // ignore: invalid_use_of_protected_member
                                                                                   color: _isLeftScrolled ? model.textColor : model.textColor.withOpacity(0.5),
                                                                                   fit: BoxFit.contain),
@@ -1333,6 +1336,7 @@ class SampleOutputContainerState extends State<_SampleOutputContainer> {
                                                                                 width: 21,
                                                                                 child: Image.asset(
                                                                                   model.themeData.colorScheme.brightness == Brightness.dark ? 'images/git_hub_dark.png' : 'images/git_hub.png',
+                                                                                  package: 'syncfusion_examples_images',
                                                                                   fit: BoxFit.contain,
                                                                                 )))))),
                                                           ),

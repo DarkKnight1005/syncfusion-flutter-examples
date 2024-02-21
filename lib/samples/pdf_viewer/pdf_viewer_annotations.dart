@@ -635,6 +635,7 @@ class AnnotationToolbarState extends State<AnnotationToolbar> {
                     child: ImageIcon(
                       const AssetImage(
                         'images/pdf_viewer/highlight.png',
+                        package: 'syncfusion_examples_images',
                       ),
                       size: 16,
                       color: _isLight ? Colors.black : const Color(0xFFFFFFFF),
@@ -656,6 +657,7 @@ class AnnotationToolbarState extends State<AnnotationToolbar> {
                     child: ImageIcon(
                       const AssetImage(
                         'images/pdf_viewer/underline.png',
+                        package: 'syncfusion_examples_images',
                       ),
                       size: 16,
                       color: _isLight ? Colors.black : const Color(0xFFFFFFFF),
@@ -677,6 +679,7 @@ class AnnotationToolbarState extends State<AnnotationToolbar> {
                     child: ImageIcon(
                       const AssetImage(
                         'images/pdf_viewer/strikethrough.png',
+                        package: 'syncfusion_examples_images',
                       ),
                       size: 16,
                       color: _isLight ? Colors.black : const Color(0xFFFFFFFF),
@@ -698,6 +701,7 @@ class AnnotationToolbarState extends State<AnnotationToolbar> {
                     child: ImageIcon(
                       const AssetImage(
                         'images/pdf_viewer/squiggly.png',
+                        package: 'syncfusion_examples_images',
                       ),
                       size: 16,
                       color: _isLight ? Colors.black : const Color(0xFFFFFFFF),
@@ -728,6 +732,7 @@ class AnnotationToolbarState extends State<AnnotationToolbar> {
                         child: ImageIcon(
                           const AssetImage(
                             'images/pdf_viewer/color_palette.png',
+                            package: 'syncfusion_examples_images',
                           ),
                           size: 17,
                           color:
@@ -751,6 +756,7 @@ class AnnotationToolbarState extends State<AnnotationToolbar> {
                         child: ImageIcon(
                           const AssetImage(
                             'images/pdf_viewer/delete.png',
+                            package: 'syncfusion_examples_images',
                           ),
                           size: 17,
                           color:
@@ -773,7 +779,8 @@ class AnnotationToolbarState extends State<AnnotationToolbar> {
                         child: ImageIcon(
                           AssetImage(_isAnnotationLocked
                               ? 'images/pdf_viewer/unlocked.png'
-                              : 'images/pdf_viewer/locked.png'),
+                              : 'images/pdf_viewer/locked.png',
+                            package: 'syncfusion_examples_images',),
                           size: 18,
                           color:
                               _isLight ? Colors.black : const Color(0xFFFFFFFF),

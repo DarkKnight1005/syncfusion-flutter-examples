@@ -291,6 +291,7 @@ class _FullViewSampleLayout extends StatelessWidget {
                                           child: IconButton(
                                             icon: Image.asset(
                                                 'images/git_hub_mobile.png',
+                                                package: 'syncfusion_examples_images',
                                                 color: Colors.white),
                                             onPressed: () {
                                               launchUrl(
@@ -330,6 +331,7 @@ class _FullViewSampleLayout extends StatelessWidget {
                                             child: IconButton(
                                               icon: Image.asset(
                                                   'images/git_hub_mobile.png',
+                                                  package: 'syncfusion_examples_images',
                                                   color: Colors.white),
                                               onPressed: () {
                                                 launchUrl(Uri.parse(
@@ -435,12 +437,14 @@ Widget getLeftSideDrawer(SampleModel model) {
                   Container(
                     padding: const EdgeInsets.fromLTRB(10, 30, 30, 10),
                     child: Image.asset('images/image_nav_banner.png',
+                    package: 'syncfusion_examples_images',
                         fit: BoxFit.cover),
                   )
                 else
                   Container(
                     padding: const EdgeInsets.fromLTRB(10, 30, 30, 10),
                     child: Image.asset('images/image_nav_banner_darktheme.png',
+                    package: 'syncfusion_examples_images',
                         fit: BoxFit.cover),
                   )
               ]),
@@ -491,6 +495,7 @@ Widget getLeftSideDrawer(SampleModel model) {
                                                     EdgeInsets.only(top: 10)),
                                             Row(children: <Widget>[
                                               Image.asset('images/product.png',
+                                              package: 'syncfusion_examples_images',
                                                   fit: BoxFit.contain,
                                                   height: 22,
                                                   width: 22,
@@ -539,6 +544,7 @@ Widget getLeftSideDrawer(SampleModel model) {
                                             Row(children: <Widget>[
                                               Image.asset(
                                                   'images/documentation.png',
+                                                  package: 'syncfusion_examples_images',
                                                   fit: BoxFit.contain,
                                                   height: 22,
                                                   width: 22,
@@ -615,6 +621,7 @@ Widget getLeftSideDrawer(SampleModel model) {
                                                       15, 0, 0, 0),
                                               child: Image.asset(
                                                   'images/img_maui.png',
+                                                  package: 'syncfusion_examples_images',
                                                   fit: BoxFit.contain,
                                                   height: 28,
                                                   width: 28)),
@@ -662,6 +669,7 @@ Widget getLeftSideDrawer(SampleModel model) {
                                                       15, 0, 0, 0),
                                               child: Image.asset(
                                                   'images/img_xamarin.png',
+                                                  package: 'syncfusion_examples_images',
                                                   fit: BoxFit.contain,
                                                   height: 28,
                                                   width: 28)),
@@ -709,6 +717,7 @@ Widget getLeftSideDrawer(SampleModel model) {
                                                       15, 0, 0, 0),
                                               child: Image.asset(
                                                   'images/img_xamarin_ui.png',
+                                                  package: 'syncfusion_examples_images',
                                                   fit: BoxFit.contain,
                                                   height: 28,
                                                   width: 28)),
@@ -755,6 +764,7 @@ Widget getLeftSideDrawer(SampleModel model) {
                                   Brightness.dark
                               ? 'images/syncfusion_dark.png'
                               : 'images/syncfusion.png',
+                              package: 'syncfusion_examples_images',
                           fit: BoxFit.contain,
                           height: 50,
                           width: 100,
@@ -854,6 +864,7 @@ Widget getFooter(BuildContext context, SampleModel model) {
               model.themeData.colorScheme.brightness == Brightness.dark
                   ? 'images/syncfusion_dark.png'
                   : 'images/syncfusion.png',
+                  package: 'syncfusion_examples_images',
               fit: BoxFit.contain,
               height: 25,
               width: model.isMobileResolution ? 80 : 120),

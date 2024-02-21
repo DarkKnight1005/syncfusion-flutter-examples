@@ -1537,7 +1537,7 @@ class _ColorPaletteState extends State<ColorPalette> {
                       decoration: ShapeDecoration(
                         image: const DecorationImage(
                             opacity: 0.7,
-                            image: AssetImage('images/pdf_viewer/opacity.png')),
+                            image: AssetImage('images/pdf_viewer/opacity.png', package: 'syncfusion_examples_images',)),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(4)),
                       ),
@@ -1716,6 +1716,7 @@ class _BottomToolbarState extends State<BottomToolbar> {
       return ImageIcon(
         const AssetImage(
           'images/pdf_viewer/highlight.png',
+          package: 'syncfusion_examples_images',
         ),
         size: 20,
         color: _isLight ? Colors.black : const Color(0xFFFFFFFF),
@@ -1725,6 +1726,7 @@ class _BottomToolbarState extends State<BottomToolbar> {
       return ImageIcon(
         const AssetImage(
           'images/pdf_viewer/strikethrough.png',
+          package: 'syncfusion_examples_images',
         ),
         size: 20,
         color: _isLight ? Colors.black : const Color(0xFFFFFFFF),
@@ -1734,6 +1736,7 @@ class _BottomToolbarState extends State<BottomToolbar> {
       return ImageIcon(
         const AssetImage(
           'images/pdf_viewer/underline.png',
+          package: 'syncfusion_examples_images',
         ),
         size: 20,
         color: _isLight ? Colors.black : const Color(0xFFFFFFFF),
@@ -1743,6 +1746,7 @@ class _BottomToolbarState extends State<BottomToolbar> {
       return ImageIcon(
         const AssetImage(
           'images/pdf_viewer/squiggly.png',
+          package: 'syncfusion_examples_images',
         ),
         size: 20,
         color: _isLight ? Colors.black : const Color(0xFFFFFFFF),
@@ -2190,7 +2194,8 @@ class _BottomToolbarState extends State<BottomToolbar> {
                             AssetImage(widget.selectedAnnotation != null &&
                                     widget.selectedAnnotation!.isLocked
                                 ? 'images/pdf_viewer/unlocked.png'
-                                : 'images/pdf_viewer/locked.png'),
+                                : 'images/pdf_viewer/locked.png',
+                              package: 'syncfusion_examples_images',),
                             size: 23,
                           ),
                         ),
@@ -2227,7 +2232,7 @@ class _BottomToolbarState extends State<BottomToolbar> {
                               }
                             },
                             child: const ImageIcon(
-                              AssetImage('images/pdf_viewer/delete.png'),
+                              AssetImage('images/pdf_viewer/delete.png', package: 'syncfusion_examples_images',),
                               size: 22,
                             ),
                           ),

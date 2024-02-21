@@ -221,6 +221,7 @@ class _HomePageState extends State<HomePage> {
     final bool isMaxxSize = MediaQuery.of(context).size.width >= 1000;
     final SampleModel model = sampleListModel;
     model.isMobileResolution = (MediaQuery.of(context).size.width) < 768;
+    //! main scaffold (home page layout)
     return SafeArea(
         child: model.isMobileResolution
             ? Scaffold(
@@ -425,6 +426,7 @@ class _HomePageState extends State<HomePage> {
                                               0, 7, 8, 7),
                                           child: Row(children: <Widget>[
                                             Image.asset('images/pub_logo.png',
+                                                package: 'syncfusion_examples_images',
                                                 fit: BoxFit.contain,
                                                 height: 33,
                                                 width: 33),
@@ -671,6 +673,7 @@ class _PersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
 
 /// Positioning/aligning the categories as  cards
 /// based on the screen width
+//! Categorized cards (on home screen)
 class _CategorizedCards extends StatefulWidget {
   @override
   _CategorizedCardsState createState() => _CategorizedCardsState();
@@ -858,7 +861,7 @@ class _CategorizedCardsState extends State<_CategorizedCards> {
                 child: ListTile(
                     contentPadding: EdgeInsets.fromLTRB(
                         12, 2, 0, category.controlList!.length > 3 ? 6 : 0),
-                    leading: Image.asset(control.image!, fit: BoxFit.cover),
+                    leading: Image.asset(control.image!, package: 'syncfusion_examples_images', fit: BoxFit.cover),
                     title: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[

@@ -1,3 +1,7 @@
+// ignore_for_file: sort_constructors_first, no_logic_in_create_state, public_member_api_docs
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -10,8 +14,6 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../../model/model.dart';
 import '../../model/sample_view.dart';
-import './shared/mobile_helper.dart'
-    if (dart.library.html) './shared/web_helper.dart' as helper;
 import 'shared/helper.dart';
 import 'shared/toolbar_widgets.dart';
 
@@ -26,15 +28,38 @@ typedef TapCallback = void Function(Object item);
 
 /// Widget of [SfPdfViewer] with custom toolbar.
 class CustomToolbarPdfViewer extends SampleView {
+  final String pdfLink;
+  final void Function(PdfDocumentLoadFailedDetails)? onDocumentLoadFailed;
+  final bool isMobileResolution;
+
   /// Creates a [SfPdfViewer] with custom toolbar.
-  const CustomToolbarPdfViewer(Key key) : super(key: key);
+  // const CustomToolbarPdfViewer(Key key) : super(key: key);
+  const CustomToolbarPdfViewer({super.key,
+    required this.pdfLink,
+    this.onDocumentLoadFailed,
+    required this.isMobileResolution,
+  });
 
   @override
-  _CustomToolbarPdfViewerState createState() => _CustomToolbarPdfViewerState();
+  _CustomToolbarPdfViewerState createState() => _CustomToolbarPdfViewerState(
+    pdfLink: pdfLink,
+    onDocumentLoadFailed: onDocumentLoadFailed,
+    isMobileResolution: isMobileResolution,
+  );
 }
 
 /// State for the [SfPdfViewer] widget with custom toolbar
 class _CustomToolbarPdfViewerState extends SampleViewState {
+  final String pdfLink;
+  final void Function(PdfDocumentLoadFailedDetails)? onDocumentLoadFailed;
+  final bool isMobileResolution;
+
+  _CustomToolbarPdfViewerState({
+    required this.pdfLink,
+    required this.isMobileResolution,
+    this.onDocumentLoadFailed,
+  });
+
   bool _canShowPdf = false;
   bool _canShowToolbar = true;
   bool _canShowBottomToolbar = false;
@@ -51,7 +76,7 @@ class _CustomToolbarPdfViewerState extends SampleViewState {
   bool _needToMaximize = false;
   bool _isVerticalModeSelected = true;
   bool _isContinuousModeClicked = true;
-  String? _documentPath;
+  // File? _document;
   PdfInteractionMode _interactionMode = PdfInteractionMode.selection;
   PdfPageLayoutMode _pageLayoutMode = PdfPageLayoutMode.continuous;
   PdfScrollDirection _scrollDirection = PdfScrollDirection.vertical;
@@ -88,13 +113,16 @@ class _CustomToolbarPdfViewerState extends SampleViewState {
   @override
   void initState() {
     super.initState();
-    _documentPath = 'assets/pdf/gis_succinctly.pdf';
-    _isDesktopWeb = isDesktop &&
-        model.isMobileResolution != null &&
-        !model.isMobileResolution;
-    if (_isDesktopWeb) {
-      helper.preventDefaultContextMenu();
-    }
+    // _document = pdfLink;
+    
+    model.isMobileResolution = isMobileResolution;
+
+    model.currentThemeData = ThemeData.from(
+        useMaterial3: false,
+        colorScheme: const ColorScheme.light().copyWith(
+            primary: model.currentPaletteColor,
+            secondary: model.currentPaletteColor));
+    model.changeTheme(model.currentThemeData!);
   }
 
   @override
@@ -695,7 +723,7 @@ class _CustomToolbarPdfViewerState extends SampleViewState {
         onPressed: () {
           _handleChooseFileClose();
           setState(() {
-            _documentPath = path;
+            // _document = path;  //! the method is not being called anyway (blocked by myself)
             _passwordVisible = true;
             password = null;
           });
@@ -908,6 +936,7 @@ class _CustomToolbarPdfViewerState extends SampleViewState {
               child: ImageIcon(
                 AssetImage(
                   imagePath,
+                  package: 'syncfusion_examples_images',
                 ),
                 size: 24,
                 color: _isLight ? Colors.black : const Color(0xFFFFFFFF),
@@ -1071,11 +1100,11 @@ class _CustomToolbarPdfViewerState extends SampleViewState {
   @override
   Widget build(BuildContext context) {
     if (isDesktop) {
-      final bool? isDrawerOpened = model.webOutputContainerState.widget
-          .webLayoutPageState?.scaffoldKey.currentState?.isEndDrawerOpen;
-      if (isDrawerOpened != null && isDrawerOpened) {
-        _closeOverlays();
-      }
+      // final bool? isDrawerOpened = model.webOutputContainerState.widget
+      //     .webLayoutPageState?.scaffoldKey.currentState?.isEndDrawerOpen;
+      // if (isDrawerOpened != null && isDrawerOpened) {
+      //   _closeOverlays();
+      // }
     }
     if (model.isMobile) {
       if (_deviceOrientation != MediaQuery.of(context).orientation) {
@@ -1107,7 +1136,7 @@ class _CustomToolbarPdfViewerState extends SampleViewState {
             controller: _pdfViewerController,
             undoHistoryController: _undoHistoryController,
             model: model,
-            onTap: (Object toolbarItem) {
+            onTap: (Object toolbarItem) async {
               if (_isDesktopWeb) {
                 if (toolbarItem == 'Pan mode') {
                   setState(() {
@@ -1118,19 +1147,28 @@ class _CustomToolbarPdfViewerState extends SampleViewState {
                       _interactionMode = PdfInteractionMode.selection;
                     }
                   });
-                } else if (toolbarItem == 'Choose file') {
-                  _handleSearchMenuClose();
-                  if (_chooseFileOverlayEntry == null) {
-                    _showChooseFileMenu(context);
-                  } else {
-                    _handleChooseFileClose();
-                  }
-                  setState(() {
-                    _hasPasswordDialog = false;
-                    _passwordVisible = true;
-                    password = null;
-                    _textFieldController.clear();
-                  });
+                } 
+                // else if (toolbarItem == 'Choose file') {
+                //   _handleSearchMenuClose();
+                //   if (_chooseFileOverlayEntry == null) {
+                //     _showChooseFileMenu(context);
+                //   } else {
+                //     _handleChooseFileClose();
+                //   }
+                //   setState(() {
+                //     _hasPasswordDialog = false;
+                //     _passwordVisible = true;
+                //     password = null;
+                //     _textFieldController.clear();
+                //   });
+                // } 
+                else if (toolbarItem == 'Save') {
+                  final List<int> fileBytes = await _pdfViewerController.saveDocument();
+                  final File file = File.fromRawPath(Uint8List.fromList(fileBytes));
+                  // save file in local and get path to it
+                  // final String path = (await getApplicationDocumentsDirectory()).path;
+                  // final String fullPath = '$path/syncfusion_flutter.pdf';
+                  await file.writeAsBytes(fileBytes);
                 } else if (toolbarItem == 'Zoom Percentage') {
                   _handleSearchMenuClose();
                   if (_zoomPercentageOverlay == null) {
@@ -1224,7 +1262,7 @@ class _CustomToolbarPdfViewerState extends SampleViewState {
                 }
                 if (toolbarItem is Document) {
                   setState(() {
-                    _documentPath = toolbarItem.path;
+                    // _document = toolbarItem.path;  //?
                     _hasPasswordDialog = false;
                     _passwordVisible = true;
                     _textFieldController.clear();
@@ -1372,8 +1410,9 @@ class _CustomToolbarPdfViewerState extends SampleViewState {
                   child: Container(),
                 );
     }
+    //! the widget inside of central box (what we need)
     return Scaffold(
-      appBar: appBar,
+      appBar: appBar, //! our actual toolbar
       // ignore: always_specify_types
       body: FutureBuilder(
         future: Future<dynamic>.delayed(const Duration(milliseconds: 200))
@@ -1400,8 +1439,8 @@ class _CustomToolbarPdfViewerState extends SampleViewState {
                   right: 0,
                   top: 0,
                   bottom: !_isDesktopWeb && _canShowBottomToolbar ? 56 : 0,
-                  child: SfPdfViewer.asset(
-                    _documentPath!,
+                  child: SfPdfViewer.network(
+                    pdfLink,
                     key: _pdfViewerKey,
                     controller: _pdfViewerController,
                     undoController: _undoHistoryController,
@@ -1423,35 +1462,35 @@ class _CustomToolbarPdfViewerState extends SampleViewState {
                         _textFieldController.clear();
                       }
                     },
-                    onDocumentLoadFailed:
-                        (PdfDocumentLoadFailedDetails details) {
-                      if (details.description.contains('password')) {
-                        if (details.description.contains('password') &&
-                            _hasPasswordDialog) {
-                          _errorText = 'Invalid password';
-                          _formKey.currentState?.validate();
-                          _textFieldController.clear();
-                          _passwordDialogFocusNode.requestFocus();
-                        } else {
-                          _errorText = '';
-                          if (model.isMobile) {
-                            _showPasswordDialog();
-                            _passwordDialogFocusNode.requestFocus();
-                            _hasPasswordDialog = true;
-                          } else {
-                            setState(() {
-                              _hasPasswordDialog = true;
-                              if (!_passwordDialogFocusNode.hasFocus) {
-                                _passwordDialogFocusNode.requestFocus();
-                              }
-                            });
-                          }
-                        }
-                      } else {
-                        showErrorDialog(
-                            context, details.error, details.description);
-                      }
-                    },
+                    onDocumentLoadFailed: onDocumentLoadFailed,
+                      //   (PdfDocumentLoadFailedDetails details) {
+                      // if (details.description.contains('password')) {
+                      //   if (details.description.contains('password') &&
+                      //       _hasPasswordDialog) {
+                      //     _errorText = 'Invalid password';
+                      //     _formKey.currentState?.validate();
+                      //     _textFieldController.clear();
+                      //     _passwordDialogFocusNode.requestFocus();
+                      //   } else {
+                      //     _errorText = '';
+                      //     if (model.isMobile) {
+                      //       _showPasswordDialog();
+                      //       _passwordDialogFocusNode.requestFocus();
+                      //       _hasPasswordDialog = true;
+                      //     } else {
+                      //       setState(() {
+                      //         _hasPasswordDialog = true;
+                      //         if (!_passwordDialogFocusNode.hasFocus) {
+                      //           _passwordDialogFocusNode.requestFocus();
+                      //         }
+                      //       });
+                      //     }
+                      //   }
+                      // } else {
+                      //   showErrorDialog(
+                      //       context, details.error, details.description);
+                      // }
+                      // },
                     onAnnotationEdited: (Annotation annotation) {
                       _selectedColor = annotation.color;
                       _opacity = annotation.opacity;
@@ -1768,6 +1807,8 @@ class ToolbarState extends State<Toolbar> {
     );
   }
 
+
+  //! web toolbar
   /// Get custom toolbar for web platform.
   Widget _webToolbar(bool canJumpToPreviousPage, bool canJumpToNextPage) {
     return SizedBox(
@@ -1779,38 +1820,39 @@ class ToolbarState extends State<Toolbar> {
             Row(
               children: <Widget>[
                 // Choose file drop down
-                _webToolbarItem(
-                    'Choose file',
-                    RawMaterialButton(
-                      fillColor: _chooseFileFillColor,
-                      elevation: 0.0,
-                      hoverElevation: 0.0,
-                      onPressed: () {
-                        widget.onTap?.call('Choose file');
-                      },
-                      child: Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(left: 4.0),
-                            child: Icon(
-                              Icons.folder_open,
-                              color: _color,
-                              size: 20,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Icon(
-                              Icons.keyboard_arrow_down,
-                              color: _color,
-                              size: 18,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    key: _chooseFileKey),
-                _groupDivider(true),
+                // _webToolbarItem(
+                //     'Choose file',
+                //     RawMaterialButton(
+                //       fillColor: _chooseFileFillColor,
+                //       elevation: 0.0,
+                //       hoverElevation: 0.0,
+                //       onPressed: () {
+                //         // widget.onTap?.call('Choose file');
+                //         widget.onTap?.call('Save');
+                //       },
+                //       child: Row(
+                //         children: <Widget>[
+                //           Padding(
+                //             padding: const EdgeInsets.only(left: 4.0),
+                //             child: Icon(
+                //               Icons.folder_open,
+                //               color: _color,
+                //               size: 20,
+                //             ),
+                //           ),
+                //           Padding(
+                //             padding: const EdgeInsets.only(left: 8.0),
+                //             child: Icon(
+                //               Icons.keyboard_arrow_down,
+                //               color: _color,
+                //               size: 18,
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //     key: _chooseFileKey),
+                // _groupDivider(true),
                 _webToolbarItem(
                   'Undo',
                   ValueListenableBuilder<UndoHistoryValue>(
@@ -2130,6 +2172,7 @@ class ToolbarState extends State<Toolbar> {
                       child: ImageIcon(
                         const AssetImage(
                           'images/pdf_viewer/color_palette.png',
+                          package: 'syncfusion_examples_images',
                         ),
                         size: 17,
                         color:
@@ -2153,6 +2196,7 @@ class ToolbarState extends State<Toolbar> {
                       child: ImageIcon(
                         const AssetImage(
                           'images/pdf_viewer/delete.png',
+                          package: 'syncfusion_examples_images',
                         ),
                         size: 17,
                         color:
@@ -2179,7 +2223,8 @@ class ToolbarState extends State<Toolbar> {
                       child: ImageIcon(
                         AssetImage(_isAnnotationLocked
                             ? 'images/pdf_viewer/unlocked.png'
-                            : 'images/pdf_viewer/locked.png'),
+                            : 'images/pdf_viewer/locked.png',
+                          package: 'syncfusion_examples_images',),
                         size: 18,
                         color:
                             _isLight ? Colors.black : const Color(0xFFFFFFFF),
@@ -2293,7 +2338,7 @@ class ToolbarState extends State<Toolbar> {
     }
 
     return ImageIcon(
-      AssetImage(iconPath),
+      AssetImage(iconPath, package: 'syncfusion_examples_images',),
       size: iconSize,
       color: _isLight ? Colors.black : const Color(0xFFFFFFFF),
     );
@@ -2368,6 +2413,7 @@ class ToolbarState extends State<Toolbar> {
     );
   }
 
+  //! custom toolbar
   @override
   Widget build(BuildContext context) {
     final bool canJumpToPreviousPage = widget.controller!.pageNumber > 1;
@@ -2376,6 +2422,7 @@ class ToolbarState extends State<Toolbar> {
     if (_isWeb) {
       return _webToolbar(canJumpToPreviousPage, canJumpToNextPage);
     } else {
+      //! mobile toolbar
       return GestureDetector(
         onTap: () {
           widget.onTap?.call('Toolbar');
@@ -2387,41 +2434,41 @@ class ToolbarState extends State<Toolbar> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               // Choose file button.
-              ToolbarItem(
-                height: 40, // height of file explorer button
-                width: 40, // width of file explorer button
-                child: Material(
-                    color: Colors.transparent,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.folder_open,
-                        color: _color,
-                        size: 24,
-                      ),
-                      onPressed: () async {
-                        widget.onTap?.call('File Explorer');
-                        widget.controller!.clearSelection();
-                        await Future<dynamic>.delayed(
-                            const Duration(milliseconds: 50));
-                        if (!mounted) {
-                          return;
-                        }
-                        await Navigator.of(context)
-                            .push<dynamic>(MaterialPageRoute<dynamic>(
-                                builder: (BuildContext context) => FileExplorer(
-                                      brightness:
-                                          _pdfViewerThemeData!.brightness,
-                                      onDocumentTap: (Document document) {
-                                        widget.onTap?.call(document);
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pop(context);
-                                      },
-                                    )));
-                      },
-                      tooltip: widget.showTooltip ? 'Choose file' : null,
-                    )),
-              ),
+              // ToolbarItem(
+              //   height: 40, // height of file explorer button
+              //   width: 40, // width of file explorer button
+              //   child: Material(
+              //       color: Colors.transparent,
+              //       child: IconButton(
+              //         icon: Icon(
+              //           Icons.folder_open,
+              //           color: _color,
+              //           size: 24,
+              //         ),
+              //         onPressed: () async {
+              //           widget.onTap?.call('File Explorer');
+              //           widget.controller!.clearSelection();
+              //           await Future<dynamic>.delayed(
+              //               const Duration(milliseconds: 50));
+              //           if (!mounted) {
+              //             return;
+              //           }
+              //           await Navigator.of(context)
+              //               .push<dynamic>(MaterialPageRoute<dynamic>(
+              //                   builder: (BuildContext context) => FileExplorer(
+              //                         brightness:
+              //                             _pdfViewerThemeData!.brightness,
+              //                         onDocumentTap: (Document document) {
+              //                           widget.onTap?.call(document);
+              //                           Navigator.of(context,
+              //                                   rootNavigator: true)
+              //                               .pop(context);
+              //                         },
+              //                       )));
+              //         },
+              //         tooltip: widget.showTooltip ? 'Choose file' : null,
+              //       )),
+              // ),
 
               ToolbarItem(
                 width: 40,
@@ -2481,7 +2528,7 @@ class ToolbarState extends State<Toolbar> {
                   borderRadius: BorderRadius.circular(4.0),
                   child: IconButton(
                     icon: const ImageIcon(
-                      AssetImage('images/pdf_viewer/text_markup.png'),
+                      AssetImage('images/pdf_viewer/text_markup.png', package: 'syncfusion_examples_images',),
                       size: 16,
                     ),
                     onPressed: () {
@@ -2646,7 +2693,8 @@ class _TextMarkupMenuItemState extends State<TextMarkupMenuItem> {
             children: <Widget>[
               Image(
                 image: AssetImage(
-                    'images/pdf_viewer/${widget.mode.toLowerCase()}.png'),
+                    'images/pdf_viewer/${widget.mode.toLowerCase()}.png',
+                  package: 'syncfusion_examples_images',),
                 width: 16,
                 height: 16,
                 color: _textColor,

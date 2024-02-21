@@ -239,6 +239,7 @@ class _LayoutPageState extends State<LayoutPage> {
                                     child: IconButton(
                                       icon: Image.asset(
                                           'images/git_hub_mobile.png',
+                                          package: 'syncfusion_examples_images',
                                           color: Colors.white),
                                       onPressed: () {
                                         launchUrl(Uri.parse(
@@ -564,6 +565,7 @@ class _LayoutPageState extends State<LayoutPage> {
                                               5, 0, 5, 5),
                                           child: Image.asset(
                                               'images/fullscreen.png',
+                                              package: 'syncfusion_examples_images',
                                               fit: BoxFit.contain,
                                               height: 20,
                                               width: 20,
